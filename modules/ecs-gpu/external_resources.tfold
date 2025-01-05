@@ -1,0 +1,25 @@
+data "aws_s3_bucket" "activations" {
+  provider = aws.monitor
+
+  bucket = var.activations_bucket
+}
+
+data "aws_s3_bucket" "footage" {
+  provider = aws.monitor
+  bucket   = var.footage_bucket
+}
+
+data "aws_secretsmanager_secret" "cloud_pgp_secret" {
+  provider = aws.monitor
+
+  name = "pgp/mpiobc/cloud"
+}
+
+# MPI OBC API
+data "aws_secretsmanager_secret" "mpi_api_credentials" {
+  arn = var.mpi_api_credential_secret_arn
+}
+
+data "aws_secretsmanager_secret" "mpi_cert" {
+  arn = var.mpi_cert_secret_arn
+}
